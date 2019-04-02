@@ -1,0 +1,68 @@
+* template for CASSCF optimization
+
+> EXPORT MOLCAS_MOLDEN=ON
+
+> COPY $InpDir/$Project.xyz $WorkDir
+> COPY $InpDir/$Project.key $WorkDir
+> COPY $InpDir/PARAMETRI.prm $WorkDir
+> COPY $InpDir/$Project.Espf.Data $WorkDir
+
+*>>> COPY $InpDir/$Project.RasOrb INPORB
+> COPY $InpDir/$Project.JobIph $WorkDir/$Project.JobOld
+
+> EXPORT CONT=1
+
+&Gateway
+ Tinker
+ Group = NoSym
+ Basis = ANO-L-VDZ
+
+>   Set   maxiter   100
+>   Do   while
+ 
+   &SEWARD
+   &ESPF
+    External = Tinker
+    lamorok
+   &RASSCF
+    *LumOrb
+    spin=1
+    nActEl=16   0   0
+    Inactive=59
+    Ras2=14
+    JobIph
+    cirestart
+ 
+> COPY $WorkDir/$Project.JobIph $InpDir/$Project.JobIph_new
+> COPY $Project.JobIph $Project.JobOld
+
+   &ALASKA
+   &SLAPAF
+    cartesian
+    rHidden = 4.0
+
+> COPY $WorkDir/$Project.xyz $InpDir/$Project.Final.xyz
+> COPY $WorkDir/$Project.Espf.Data $InpDir
+
+> EXPORT EST=00$CONT
+> If ( -FILE $Project.$EST )
+> COPY $WorkDir/$Project.$EST $InpDir
+> EndIf
+
+> EXPORT EST=0$CONT
+> If ( -FILE $Project.$EST )
+> COPY $WorkDir/$Project.$EST $InpDir
+> EndIf
+
+> EVAL CONT=$CONT+1
+
+>   EndDo
+
+* &GRID_IT
+*   SELEct
+*   1:67-98
+* &GRID_IT
+*   FILEORB = $Project.RasOrb; NAME = average
+*   SELEct
+*   1:67-98
+

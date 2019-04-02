@@ -1,0 +1,63 @@
+# Installation of the ARM protocol (Last update: July31, 2015) 
+#
+#
+# 1) Install Dowser, Modeller, Scrwl4, Molcas and Tinker
+#
+# 2) Install VMD and make sure it can be run sliently from prompt.  
+#
+# 3) Replace the file "atomdict.db" into the directory "~/dowser/DATA" to allow Dowser to recognize the RET chromophore
+# 
+# 4) Update sample-ARMconfig file (See details in that file) and then run install.sh 
+#
+#
+#
+# Running ARM protocol
+#
+# 1) Prepare the pdb file with the correct protonation states (Using PropKa: https://github.com/jensengroup/propka-3.1) 
+#
+# 2) Add counter-ions (Say CL or NA) as needed to make sure the whole protein is neutral. (The protocol would do a check as well) 
+#
+# 3) Copy New.sh file to the same directory with the pdb file
+#
+# 4) Prepare the "cavity" or "seqmut" as needed. (See below) 
+#
+# 5) Run New.sh
+#
+#
+## "cavity" file (For specifying list of cavity residues)
+##
+## One can put a list of residue numbers in the file named "cavity" that would allow to move in the molecular dynamics. 
+## This "cavity" file has to be put in the same folder as the initial PDB file and New.sh. 
+##
+## Or 
+## 
+## One can use the distance (in Angstroms) from the retinal chromophore to define the cavity automatically when running GROMACS 
+#
+#
+#
+#
+## "seqmut file (For Mutation) 
+##
+## The mutation routine is activated ONLY if you place a file named "seqmut"
+## in the same folder as the initial PDB file and New.sh. In that file mutations have 
+## to be placed in one of the following standard format for replacements:
+##     S83G
+##     Tyr96Arg
+## The script is case-insensitive, so also s83g, TYR78lys and so on would be accepted. 
+##
+## Mixed 1- and 3-letters codes will not be properly read. 
+##
+## If you want to perform more than 1 substitution, just list them on different lines in the same file.
+## 
+## Currently it is not possible to select the protonation state of the new residue by putting something like ser86glh in seqmut. 
+##
+## To neutralize it, you have to make the replacement with standard labels, ser86glu, 
+## then manually change labels to GLH in the PDB before running NewStep.sh. 
+##
+## This is due to both Modeller and SCWRL4 which don’t recognize protonated stuff...
+##          
+## If you need more information, please check the comments in mutate.sh
+#
+#
+ 
+

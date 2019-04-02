@@ -1,0 +1,10 @@
+Template /home/users/yorozcogonzalez/bin/ASEC_General_ff99/template
+Tinker /home/users/yorozcogonzalez/bin/7.8.dev/tinker/bin_qmmm
+Version Tk 5.1
+Queue SLURM
+Gromacs YES
+GroPath /home/users/yorozcogonzalez/bin/gromacs/bin
+Dowser YES
+DowPath /home/users/yorozcogonzalez/bin/dowser/bin/dowser
+Modeller NO
+SCWRL4 YES
