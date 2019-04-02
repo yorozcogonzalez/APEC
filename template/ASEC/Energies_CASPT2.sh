@@ -33,28 +33,25 @@ cp $Project_new/$Project_new.JobIph CASPT2_ipea_025/${Project}_CASPT2_025.JobIph
 cp $Project_new/$Project_new.JobIph CASPT2_ipea_0/${Project}_CASPT2_0.JobIph
 
 #slurm
-cp $Project_new/molcas-job.sh CASPT2_ipea_025
-cp $Project_new/molcas-job.sh CASPT2_ipea_0
-sed -i "s/NOMEPROGETTO/$Project/" CASPT2_ipea_025/molcas-job.sh
-sed -i "s/NOMEPROGETTO/$Project/" CASPT2_ipea_0/molcas-job.sh
-sed -i "s/MEMTOT/23000/" CASPT2_ipea_025/molcas-job.sh
-sed -i "s/MEMTOT/23000/" CASPT2_ipea_0/molcas-job.sh
-sed -i "s/MEMORIA/20000/" CASPT2_ipea_025/molcas-job.sh
-sed -i "s/MEMORIA/20000/" CASPT2_ipea_0/molcas-job.sh
-sed -i "s/walltime=140/walltime=230/" CASPT2_ipea_025/molcas-job.sh
-sed -i "s/walltime=140/walltime=230/" CASPT2_ipea_0/molcas-job.sh
+cp $Project_new/SUBMISSION CASPT2_ipea_025
+cp $Project_new/SUBMISSION CASPT2_ipea_0
+sed -i "s/NOMEPROGETTO/$Project/" CASPT2_ipea_025/SUBMISSION
+sed -i "s/NOMEPROGETTO/$Project/" CASPT2_ipea_0/SUBMISSION
+sed -i "s/MEMTOT/23000/" CASPT2_ipea_025/SUBMISSION
+sed -i "s/MEMTOT/23000/" CASPT2_ipea_0/SUBMISSION
+sed -i "s/MEMORIA/20000/" CASPT2_ipea_025/SUBMISSION
+sed -i "s/MEMORIA/20000/" CASPT2_ipea_0/SUBMISSION
+sed -i "s/walltime=140/walltime=230/" CASPT2_ipea_025/SUBMISSION
+sed -i "s/walltime=140/walltime=230/" CASPT2_ipea_0/SUBMISSION
 
-sed -i "s/export Project=.*/export Project=${Project}_CASPT2_025/g" CASPT2_ipea_025/molcas-job.sh
-sed -i "s/export Project=.*/export Project=${Project}_CASPT2_0/g" CASPT2_ipea_0/molcas-job.sh
+sed -i "s/export Project=.*/export Project=${Project}_CASPT2_025/g" CASPT2_ipea_025/SUBMISSION
+sed -i "s/export Project=.*/export Project=${Project}_CASPT2_0/g" CASPT2_ipea_0/SUBMISSION
 
-#slurm
 cd CASPT2_ipea_025
-sbatch molcas-job.sh
-#qsub molcas-job.sh
+SUBCOMMAND SUBMISSION
 cd ..
 cd CASPT2_ipea_0
-#sbatch molcas-job.sh
-#qsub molcas-job.sh 
+#SUBCOMMAND SUBMISSION
 
 cd ../../
 cp $templatedir/ASEC/Energies_CAV_TINKER.sh .

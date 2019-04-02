@@ -56,9 +56,7 @@ mkdir ${new}
 cp $opt/$opt.key ${new}/${new}.key
 cp $opt/$opt.Final.xyz ${new}/${new}.xyz
 cp $opt/${prm}.prm ${new}/
-#slurm
-cp $templatedir/molcas.slurm.sh ${new}/molcas-job.sh
-#cp $templatedir/molcas-job.sh ${new}/
+cp $templatedir/SUBMISSION ${new}
 cp $templatedir/ASEC/templateSP ${new}/
 #cp $templatedir/modify-inp.vim ${new}/
 cd ${new}/
@@ -95,13 +93,12 @@ sed -i "s/ANO-L-VDZ/ANO-L-VDZP/g" ${new}.input
 # For CASSCF/6-31G* single point let's hope 2 Gb will be enough...
 # Time requested will be 1 day
 #
-sed -i "s|NOMEPROGETTO|${new}|" molcas-job.sh
+sed -i "s|NOMEPROGETTO|${new}|" SUBMISSION
 no=$PWD
-sed -i "s|NOMEDIRETTORI|${no}|" molcas-job.sh
-sed -i "s|MEMTOT|23000|" molcas-job.sh
-sed -i "s|MEMORIA|20000|" molcas-job.sh
-sed -i "s|hh:00:00|30:00:00|" molcas-job.sh
-#sed -i "/#PBS -l mem=/a#PBS -A PAA0009" molcas-job.sh
+sed -i "s|NOMEDIRETTORI|${no}|" SUBMISSION
+sed -i "s|MEMTOT|23000|" SUBMISSION
+sed -i "s|MEMORIA|20000|" SUBMISSION
+sed -i "s|hh:00:00|30:00:00|" SUBMISSION
 
 # Job submission and template copy for the following step
 #
@@ -110,9 +107,7 @@ echo " Submitting the CAS/VDZP single point now..."
 echo ""
 sleep 1
 
-#slurm
-#qsub molcas-job.sh
-sbatch molcas-job.sh
+SUBCOMMAND SUBMISSION
 
 cd ..
 cp $templatedir/ASEC/sp_to_opt_VDZP_mod.sh .

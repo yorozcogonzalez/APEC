@@ -13,7 +13,7 @@ if [ -f Infos.dat ]; then
    exit 0
 fi
 
-camino=/home/users/yorozcogonzalez/bin/ASEC_General_ff99/template
+camino=INSTALLDIR/template
 cp $camino/Infos.dat .
 
 # Asking the name of the project

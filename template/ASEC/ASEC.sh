@@ -78,11 +78,7 @@ mv temp4 $prm.prm
 rm ASEC_tk.xyz list_tk.dat coordinates_tk.xyz ASEC.x ASEC.f
 rm temp1 temp2 temp3 new_atom.dat new_charges.dat new_vdw.dat atom.dat charges.dat vdw.dat New_parameters.x New_parameters.f
 
-#slurm
-sbatch molcas-job.sh
-#qsub molcas-job.sh
-
-#sleep 3
+SUBCOMMAND SUBMISSION
 
 echo ""
 echo ""

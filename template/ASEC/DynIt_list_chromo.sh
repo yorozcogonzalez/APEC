@@ -124,24 +124,7 @@ fi
 cp $templatedir/ASEC/moldynamic_parall.sh .
 sed -i "s/update_infos.sh \$checkrest/update_infos.sh/g" moldynamic_parall.sh
 
-#sed -i "s/qsub gromacs.sh/#qsub gromacs.sh/" moldynamic.sh
-#sed -i "s/-z \$checkmpp/\$checkmpp == NO/" moldynamic.sh
 ./moldynamic_parall.sh
-#sed -i "s/walltime=60/walltime=10/" gromacs.sh
-#sed -i "/mem=800MB/a#PBS -A PAA0009" gromacs.sh
-#sed -i "/NPROCS/amodule load gromacs\/4.5.5" gromacs.sh
-#sed -i "/\/usr\/local/d" gromacs.sh
-#sed -i "/cp \* \$outdir/d" gromacs.sh
-#echo "mpiexec mdrun_mpi -s $Project.tpr -o $Project.trr -c final-$Project.gro" >> gromacs.sh
-#echo "cp * \$outdir" >> gromacs.sh
-##sed -i "/gromacs-4.5.5/d" gromacs.sh
-
-#cp $templatedir/ASEC/update_infos.sh ../
-
-#sbatch gromacs.sh
-#qsub gromacs.sh
-
-####### Yoe        
 
 cd ..
 cp $templatedir/ASEC/MD_ASEC.sh .

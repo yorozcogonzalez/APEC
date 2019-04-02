@@ -86,9 +86,7 @@ cp $sp/$sp.key ${new}/${new}.key
 cp $sp/$sp.xyz ${new}/${new}.xyz
 cp $sp/${prm}.prm ${new}/
 cp $sp/$sp.Espf.Data ${new}/${new}.Espf.Data
-#slurm
-#cp $templatedir/molcas-job.sh ${new}/
-cp $templatedir/molcas.slurm.sh ${new}/molcas-job.sh
+cp $templatedir/SUBMISSION ${new}
 cp $templatedir/ASEC/template_CASSCF_min ${new}/template
 #cp $templatedir/modify-inp.vim ${new}/
 cd ${new}/
@@ -124,13 +122,12 @@ mv template ${new}.input
 # Here there is a CASSCF/3-21G optimization, so 1.5 Gb should be more than enough
 # A requested time of 36 hrs should be OK
 #
-sed -i "s|NOMEPROGETTO|${new}|" molcas-job.sh
+sed -i "s|NOMEPROGETTO|${new}|" SUBMISSION
 no=$PWD
-sed -i "s|NOMEDIRETTORI|${no}|" molcas-job.sh
-sed -i "s|MEMTOT|23000|" molcas-job.sh
-sed -i "s|MEMORIA|20000|" molcas-job.sh
-sed -i "s|hh:00:00|90:00:00|" molcas-job.sh
-#sed -i "/#PBS -l mem=/a#PBS -A PAA0009" molcas-job.sh
+sed -i "s|NOMEDIRETTORI|${no}|" SUBMISSION
+sed -i "s|MEMTOT|23000|" SUBMISSION
+sed -i "s|MEMORIA|20000|" SUBMISSION
+sed -i "s|hh:00:00|90:00:00|" SUBMISSION
 
 # Job submission and template copy for the following step
 #
@@ -139,9 +136,7 @@ echo " Submitting the CAS/3-21G optimization now..."
 echo ""
 sleep 1
 
-#slurm
-#qsub molcas-job.sh
-sbatch molcas-job.sh
+SUBCOMMAND SUBMISSION
 
 cd ..
 cp $templatedir/ASEC/2nd_to_3rd_mod.sh .

@@ -114,9 +114,7 @@ fi
 numsteps=$(($numsteps*1000))
 sed -i "s/PASSI/$numsteps/" dynamic_sol_NVT.mdp
 
-#slurm
-#cp $templatedir/gromacs.sh .
-cp $templatedir/gromacs.slurm.sh gromacs.sh
+cp $templatedir/DYNSUB .
 
 if [[ $parallelize == y ]]; then
    for i in $(eval echo "{1..$numparallel}")
@@ -132,51 +130,26 @@ if [[ $parallelize == y ]]; then
 
       $gropath/grompp -maxwarn 2 -f dynamic_sol_NVT.mdp -c ${Project}_box_sol.gro -n ${Project}_box_sol.ndx -p ${Project}_box_sol.top -o ${Project}_box_sol.tpr
 
-      sed -i "s|NOMEPROGETTO|${Project}_box_sol|" gromacs.sh
-      sed -i "s|NOMEDIRETTORI|$PWD|" gromacs.sh
-      sed -i "s|GROPATH|$gropath|" gromacs.sh
+      sed -i "s|NOMEPROGETTO|${Project}_box_sol|" DYNSUB
+      sed -i "s|NOMEDIRETTORI|$PWD|" DYNSUB
+      sed -i "s|GROPATH|$gropath|" DYNSUB
 
-      sed -i "s/SBATCH -t 23:59:00/SBATCH -t 47:59:00/" gromacs.sh
-      #sed -i "/mem=800MB/a#PBS -A PAA0009" gromacs.sh
-      #sed -i "/NPROCS/amodule load gromacs\/4.5.5" gromacs.sh
-      #sed -i "/\/usr\/local/d" gromacs.sh
-      #sed -i "/cp \* \$outdir/d" gromacs.sh
-      ##echo "mdrun -s ${Project}_box_sol.tpr -o ${Project}_box_sol.trr -c final-${Project}_box_sol.gro" >> gromacs.sh
-      #echo "mpiexec mdrun_mpi -s ${Project}_box_sol.tpr -o ${Project}_box_sol.trr -c final-${Project}_box_sol.gro" >> gromacs.sh
-      #echo "cp * \$outdir" >> gromacs.sh
-      #sed -i "/gromacs-4.5.5/d" gromacs.sh
+      sed -i "s/SBATCH -t 23:59:00/SBATCH -t 47:59:00/" DYNSUB
 
-      #slurm
-      #cp gromacs.sh gromacs.slurm.sh
-      sbatch gromacs.sh
-      #qsub gromacs.sh
+      SUBCOMMAND DYNSUB
 
-      ##mdrun -s ${Project}_box_sol.tpr -o ${Project}_box_sol.trr -c final-${Project}_box_sol.gro 2> grolog
       cd ..
       done
    else
       $gropath/grompp -maxwarn 2 -f dynamic_sol_NVT.mdp -c ${Project}_box_sol.gro -n ${Project}_box_sol.ndx -p ${Project}_box_sol.top -o ${Project}_box_sol.tpr
 
-      sed -i "s|NOMEPROGETTO|${Project}_box_sol|" gromacs.sh
-      sed -i "s|NOMEDIRETTORI|$PWD|" gromacs.sh
-      sed -i "s|GROPATH|$gropath|" gromacs.sh
+      sed -i "s|NOMEPROGETTO|${Project}_box_sol|" DYNSUB
+      sed -i "s|NOMEDIRETTORI|$PWD|" DYNSUB
+      sed -i "s|GROPATH|$gropath|" DYNSUB
 
-      sed -i "s/SBATCH -t 23:59:00/SBATCH -t 47:59:00/" gromacs.sh
-      #sed -i "/mem=800MB/a#PBS -A PAA0009" gromacs.sh
-      #sed -i "/NPROCS/amodule load gromacs\/4.5.5" gromacs.sh
-      #sed -i "/\/usr\/local/d" gromacs.sh
-      #sed -i "/cp \* \$outdir/d" gromacs.sh
-      ##echo "mdrun -s ${Project}_box_sol.tpr -o ${Project}_box_sol.trr -c final-${Project}_box_sol.gro" >> gromacs.sh
-      #echo "mpiexec mdrun_mpi -s ${Project}_box_sol.tpr -o ${Project}_box_sol.trr -c final-${Project}_box_sol.gro" >> gromacs.sh
-      #echo "cp * \$outdir" >> gromacs.sh
-      #sed -i "/gromacs-4.5.5/d" gromacs.sh
+      sed -i "s/SBATCH -t 23:59:00/SBATCH -t 47:59:00/" DYNSUB
 
-      #slurm
-      #cp gromacs.sh gromacs.slurm.sh
-      sbatch gromacs.sh
-      #qsub gromacs.sh
-
-      ##mdrun -s ${Project}_box_sol.tpr -o ${Project}_box_sol.trr -c final-${Project}_box_sol.gro 2> grolog
+      SUBCOMMAND DYNSUB
 fi
 
    cd ../

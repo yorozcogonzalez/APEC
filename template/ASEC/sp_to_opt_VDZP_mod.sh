@@ -87,9 +87,7 @@ cp $sp/$sp.key ${new}/${new}.key
 cp $sp/$sp.xyz ${new}/${new}.xyz
 cp $sp/${prm}.prm ${new}/
 cp $sp/$sp.Espf.Data ${new}/${new}.Espf.Data
-#slurm
-cp $templatedir/molcas.slurm.sh ${new}/molcas-job.sh
-#cp $templatedir/molcas-job.sh ${new}/
+cp $templatedir/SUBMISSION ${new}
 
 cp $templatedir/ASEC/template_CASSCF_min ${new}/
 #cp $templatedir/modify-inp.vim ${new}/
@@ -99,27 +97,6 @@ cd ${new}/
 #
 sed -i "s|PARAMETRI|${prm}|" template_CASSCF_min
 
-# Calling xyzedit for input generation
-#
-#$tinkerdir/xyzedit ${new}.xyz <<EOF
-#20
-#1
-#EOF
-
-# Editing the input file with modify-inp.vim: removal of the Tinker standard part
-# and introduction of the basis set
-#
-#sed -i 's/BASIS/6-31G*/' modify-inp.vim
-#sed -i 's/BAS2/6-31G\\*/' modify-inp.vim
-#vim -es $new.input < modify-inp.vim
-#rm modify-inp.vim
-
-# Merging the geometrical part and the template for CAS optimization
-#
-#mv ${new}.input temp
-#cat temp template > ${new}.input
-#rm temp template
-
 mv template_CASSCF_min ${new}.input
 sed -i "s/ANO-L-VDZ/ANO-L-VDZP/g" ${new}.input
 sed -i "/rHidden = 4.0/a> COPY \$WorkDir/\$Project.RunFile \$InpDir/\$Project.Hessian_new" ${new}.input
@@ -128,16 +105,14 @@ sed -i "/rHidden = 4.0/a> COPY \$WorkDir/\$Project.RunFile \$InpDir/\$Project.He
 # Here there is a CASSCF/6-31G* optimization, so 2 Gb should be enough...
 # The maximum available hours, 144 hrs (6 days), are requested
 #
-sed -i "s|NOMEPROGETTO|${new}|" molcas-job.sh
+sed -i "s|NOMEPROGETTO|${new}|" SUBMISSION
 no=$PWD
-sed -i "s|NOMEDIRETTORI|${no}|" molcas-job.sh
-sed -i "s|MEMTOT|23000|" molcas-job.sh
-sed -i "s|MEMORIA|20000|" molcas-job.sh
-sed -i "s|hh:00:00|120:00:00|" molcas-job.sh
-#slurm
-#sed -i "/#PBS -l mem=/a#PBS -A PAA0009" molcas-job.sh
-#sed -i "s|ppn=4|ppn=8|" molcas-job.sh
+sed -i "s|NOMEDIRETTORI|${no}|" SUBMISSION
+sed -i "s|MEMTOT|23000|" SUBMISSION
+sed -i "s|MEMORIA|20000|" SUBMISSION
+sed -i "s|hh:00:00|120:00:00|" SUBMISSION
 
+#
 # Job submission and template copy for the following step
 #
 echo ""
@@ -145,15 +120,10 @@ echo " Submitting the CAS/VDZP optimization now..."
 echo ""
 sleep 1
 
-#slurm
-#mv molcas-job.sh molcas.slurm.sh
-sbatch molcas-job.sh
-#qsub molcas-job.sh
+SUBCOMMAND SUBMISSION
 
 cd ..
-#cp $templatedir/ASEC/3rd_to_4th_mod.sh .
 cp $templatedir/ASEC/finalPDB_mod.sh .
-#cp $templatedir/ASEC/Energies_CASPT2.sh .
  
 # Updating the Infos.dat Current field, which stores the current running calculation
 #

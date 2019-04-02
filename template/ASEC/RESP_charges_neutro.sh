@@ -531,12 +531,10 @@ cp $templatedir/ASEC/RESP/RESP.com .
 cat RESP.com RET.com > ${Project}_RESP.com
 rm RESP.com RET.com
 
-cp $templatedir/ASEC/gaussian.sh .
-sed -i "s/PROJECTO/${Project}_RESP/" gaussian.sh
+cp $templatedir/ASEC/SUBMIGAU .
+sed -i "s/PROJECTO/${Project}_RESP/" SUBMIGAU
 
-#slurm
-#sbatch gaussian.sh
-qsub gaussian.sh
+SUBCOMMAND SUBMIGAU
 
 echo ""
 echo ""

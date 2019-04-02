@@ -7,9 +7,9 @@ InpDir=NOMEDIRETTORI; export InpDir
 MOLCASMEM=MEMORIAMB ; export MOLCASMEM
 
 PATH=$PATH:/home/opt/intel/cce/10.1.008/bin/:/home/apps/tinker/:/home/opt/intel/cce/10.1.008/lib/:home/opt/intel/fce/10.1.008/lib
-MOLCAS=/nfs/03/bgs0361/bin/7.8.dev; export MOLCAS
+MOLCAS=MOLCASDIR; export MOLCAS
 export MOLCAS_MOLDEN=ON
-export TINKER=/nfs/03/bgs0361/bin/7.8.dev/tinker/bin_qmmm
+export TINKER=TINKERDIR
 WorkDir=/state/partition1/scr/$USER/$Project.$RANDOM; export WorkDir
 mkdir /state/partition1/scr/$USER
 mkdir $WorkDir
@@ -17,7 +17,7 @@ mkdir $WorkDir
 cp $InpDir/* $WorkDir/
 
 cd $WorkDir
-/nfs/03/bgs0361/bin/dowser/bin/molcas $InpDir/$Project.input > $InpDir/$Project.out 2> $InpDir/$Project.err
+MOLCASDRV/molcas $InpDir/$Project.input > $InpDir/$Project.out 2> $InpDir/$Project.err
 
 cp $WorkDir/*.molden $InpDir/
 cp $WorkDir/$Project.xyz $InpDir/$Project.Final.xyz

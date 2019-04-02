@@ -152,14 +152,12 @@ cat GAUSS_CALC.com ${Project}_GAUSS.com > temp10
 mv temp10 ${Project}_GAUSS.com
 rm GAUSS_CALC.com
 
-cp $templatedir/ASEC/gaussian.sh .
-sed -i "s/PROJECTO/${Project}_GAUSS/" gaussian.sh
-sed -i "s/SBATCH -t 9:00:00/SBATCH -t 220:00:00/" gaussian.sh
-sed -i "s/SBATCH --mem=12000MB/SBATCH --mem=32000MB/" gaussian.sh
+cp $templatedir/ASEC/SUBMIGAU .
+sed -i "s/PROJECTO/${Project}_GAUSS/" SUBMIGAU
+sed -i "s/SBATCH -t 9:00:00/SBATCH -t 220:00:00/" SUBMIGAU
+sed -i "s/SBATCH --mem=12000MB/SBATCH --mem=32000MB/" SUBMIGAU
 
-#slurm
-#sbatch gaussian.sh
-#qsub gaussian.sh
+#SUBCOMMAND SUBMIGAU
 
 cd ..
 

@@ -184,12 +184,10 @@ cat RESP.com ${Project}_RESP.com > temp10
 mv temp10 ${Project}_RESP.com
 rm RESP.com
 
-cp $templatedir/ASEC/gaussian.sh .
-sed -i "s/PROJECTO/${Project}_RESP/" gaussian.sh
+cp $templatedir/ASEC/SUBMIGAU .
+sed -i "s/PROJECTO/${Project}_RESP/" SUBMIGAU
 
-#slurm
-#sbatch gaussian.sh
-qsub gaussian.sh
+SUBCOMMAND SUBMIGAU
 
 cd ..
 cp $templatedir/ASEC/fitting_RESP.sh .

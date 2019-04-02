@@ -84,10 +84,7 @@ echo " Simultaniously to the QM/MM optimization you can run Energies_CASPT2.sh f
 echo " After complete the QMMM optimization, run finalPDB_mod.sh"
 echo ""
 
-#slurm
-#cp molcas-job.sh molcas.slurm.sh
-sbatch molcas-job.sh
-#qsub molcas-job.sh
+SUBCOMMAND SUBMISSION
 
 #echo ""
 #echo " Submited. After complete the QMMM job, go to calculations and run finalPDB_mod.sh"

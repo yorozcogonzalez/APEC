@@ -15,11 +15,11 @@ cd $PBS_O_WORKDIR
 # Molcas settings 
 #--------------------------------------------------------------#
 module load intel-compilers-10.0.023
-export MOLCAS="/users/PCS0202/bgs0361/bin/7.8.dev"
+export MOLCAS="MOLCASDIR"
 export MOLCASMEM=MEMORIAMB
 export MOLCAS_MOLDEN=ON
 export MOLCAS_PRINT=normal
-export TINKER="/users/PCS0202/bgs0361/bin/7.8.dev/tinker/bin_qmmm"
+export TINKER="TINKERDIR"
 #--------------------------------------------------------------#
 #  Change the Project!!!
 #--------------------------------------------------------------#
@@ -39,4 +39,4 @@ echo $JOBID > $InpDir/jobid
 # Start job
 #--------------------------------------------------------------#
 cd $WorkDir
-/users/PCS0202/bgs0361/bin/dowser/bin/molcas $InpDir/$Project.input >$InpDir/$Project.out 2>$InpDir/$Project.err
+MOLCASDRV/molcas $InpDir/$Project.input >$InpDir/$Project.out 2>$InpDir/$Project.err

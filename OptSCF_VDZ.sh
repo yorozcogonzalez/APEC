@@ -42,19 +42,21 @@ cp $scf/$scf.Final.xyz ${new}/${new}.xyz
 cp $scf/$scf.key ${new}/${new}.key
 cp $scf/${prm}.prm ${new}/
 cp $scf/${scf}.input ${new}/${new}.input
-cp $templatedir/SUBMISSION ${new}
+#slurm
+cp $templatedir/molcas.slurm.sh ${new}/molcas-job.sh
+#cp $templatedir/molcas-job.sh ${new}/
 cd ${new}/
 
 
 # Editing the submission script template for a CAS single point 
 #
  
-sed -i "s|NOMEPROGETTO|${new}|" SUBMISSION
+sed -i "s|NOMEPROGETTO|${new}|" molcas-job.sh
 no=$PWD
-sed -i "s|NOMEDIRETTORI|${no}|" SUBMISSION
-sed -i "s|MEMTOT|23000|" SUBMISSION
-sed -i "s|MEMORIA|20000|" SUBMISSION
-sed -i "s|hh:00:00|160:00:00|" SUBMISSION
+sed -i "s|NOMEDIRETTORI|${no}|" molcas-job.sh
+sed -i "s|MEMTOT|23000|" molcas-job.sh
+sed -i "s|MEMORIA|20000|" molcas-job.sh
+sed -i "s|hh:00:00|160:00:00|" molcas-job.sh
 sed -i "s|Basis = ANO-L-MB|Basis = ANO-L-VDZ|g" ${new}.input
 
 # Submitting the CAS/3-21G single point
@@ -64,7 +66,9 @@ echo " Submitting the CAS/3-21G single point now..."
 echo ""
 sleep 1
 
-SUBCOMMAND SUBMISSION
+#slurm
+#qsub molcas-job.sh
+sbatch molcas-job.sh
 
 # Copying the script for the following step and giving instructions to the user
 #

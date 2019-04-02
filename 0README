@@ -36,9 +36,9 @@
 #
 # 2) Prepare the pdb file of the protein (without the chromophore) with the correct protonation states (Using PropKa: https://github.com/jensengroup/propka-3.1) 
 #
-# 3) Copy New_ASEC_99sb.sh file to the same directory with the pdb file of the protein and chromophore.xyz
+# 3) Copy New_APEC_99sb.sh file to the same directory with the pdb file of the protein and chromophore.xyz
 #
-# 4) Run New_ASEC_99sb.sh
+# 4) Run New_APEC_99sb.sh
 #
 #
 ## "seqmut file (For Mutation) 
@@ -55,6 +55,7 @@
 ## If you want to perform more than 1 substitution, just list them on different lines in the same file.
 ## 
 #
+#ASEC
 #
  
 

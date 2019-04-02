@@ -43,8 +43,7 @@ cp $scf/$scf.key ${new}/${new}.key
 cp $scf/${prm}.prm ${new}/
 #cp $templatedir/modify-inp.vim ${new}/
 #slurm
-cp $templatedir/molcas.slurm.sh ${new}/molcas-job.sh
-#cp $templatedir/molcas-job.sh ${new}/
+cp $templatedir/SUBMISSION ${new}
 cp $templatedir/ASEC/templateSP ${new}/
 cd ${new}/
 
@@ -58,14 +57,14 @@ sed -i "s|PARAMETRI|${prm}|" templateSP
 
 mv templateSP $new.input
  
-sed -i "s|NOMEPROGETTO|${new}|" molcas-job.sh
+sed -i "s|NOMEPROGETTO|${new}|" SUBMISSION
 no=$PWD
-sed -i "s|NOMEDIRETTORI|${no}|" molcas-job.sh
-sed -i "s|MEMTOT|23000|" molcas-job.sh
-sed -i "s|MEMORIA|20000|" molcas-job.sh
-sed -i "s|hh:00:00|160:00:00|" molcas-job.sh
-#sed -i "/#PBS -l mem=/a#PBS -A PAA0009" molcas-job.sh
+sed -i "s|NOMEDIRETTORI|${no}|" SUBMISSION
+sed -i "s|MEMTOT|23000|" SUBMISSION
+sed -i "s|MEMORIA|20000|" SUBMISSION
+sed -i "s|hh:00:00|160:00:00|" SUBMISSION
 
+#
 # Submitting the CAS/3-21G single point
 #
 echo ""
@@ -73,9 +72,7 @@ echo " Submitting the CAS/ANO-L-VDZ single point now..."
 echo ""
 sleep 1
 
-#slurm
-#qsub molcas-job.sh
-sbatch molcas-job.sh
+SUBCOMMAND SUBMISSION
 
 # Copying the script for the following step and giving instructions to the user
 #
