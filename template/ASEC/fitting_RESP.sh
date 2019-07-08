@@ -3,10 +3,14 @@
 # Reading data from Infos.dat
 #
 
-RESP="STATFIT"
+if [[ -f Infos.dat ]]; then
+   RESP="GRO"
+else
+   RESP="TNK"
+fi
 
 if [[ $RESP != "GRO" && $RESP != "TNK" ]]; then
-   echo " Please define RESP type"
+   echo " Please define RESP type in this script."
    echo " Aborting ..."
    exit 0
 fi
@@ -17,6 +21,7 @@ if [[ $RESP == "GRO" ]]; then
    chromophore=`grep "chromophore" Infos.dat | awk '{ print $2 }'`
    Chromo=`grep "CHR_RESP" Infos.dat | awk '{ print $2 }'`
    dimer=`grep "Dimer" Infos.dat | awk '{ print $2 }'`
+   chr=`grep "Chromo_Charge" Infos.dat | awk '{ print $2 }'`
 else
    Project=`grep "Project" ../Infos.dat | awk '{ print $2 }'`
    templatedir=`grep "Template" ../Infos.dat | awk '{ print $2 }'`
@@ -24,6 +29,7 @@ else
    Chromo=`grep "CHR_RESP" ../Infos.dat | awk '{ print $2 }'`
    cp ../Chromophore/$chromophore.xyz RESP_charges
    dimer=`grep "Dimer" ../Infos.dat | awk '{ print $2 }'`
+   chr=`grep "Chromo_Charge" ../Infos.dat | awk '{ print $2 }'`
 fi
 
 cd RESP_charges
@@ -55,6 +61,8 @@ if [[ $dimer == "NO" ]]; then
    cp $templatedir/ASEC/RESP/$Chromo-resp1.in .
    cp $templatedir/ASEC/RESP/$Chromo-resp2.in .
 
+   sed -i "s/CHARGE/$chr/g" $Chromo-resp1.in
+   sed -i "s/CHARGE/$chr/g" $Chromo-resp2.in
 
    grep "Atomic Center " ${Project}_RESP.out > a
    grep "ESP Fit" ${Project}_RESP.out > b

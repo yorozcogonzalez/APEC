@@ -3,6 +3,7 @@
 pdb="PROGETTO.pdb"
 quanti=`grep 'ATOM ' $pdb | tail -n 1 | awk '{ print $6 }'`
 flag=0
+# YOE bug initiate resall
 for i in $(seq 1 $quanti); do
     residuo=`awk '{ if ( $6 == "'"$i"'" ) print $4 }' $pdb | uniq`
     if [[ ! -z $residuo ]]; then
