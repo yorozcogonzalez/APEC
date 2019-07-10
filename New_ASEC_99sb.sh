@@ -35,7 +35,7 @@ echo "    **         **    ***     *******      ***            **        *******
 echo ""
 echo ""
 echo "                                                                Gozem Lab., Georgia State University "
-echo "                                                   Last version, Sept/2018 by Yoelvis Orozco-Gonzalez"
+echo "                                                   Last version, Jul/2019 by Yoelvis Orozco-Gonzalez"
 echo "*****************************************************************************************************"
 echo "*****************************************************************************************************"
 echo ""
